@@ -4,6 +4,7 @@ import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
+import java.util.Random;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -15,6 +16,9 @@ public class Runner {
 
     // The window handle
     private long window;
+
+    private int width;
+    private int height;
 
     public void run() {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
@@ -46,7 +50,7 @@ public class Runner {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
         // Create the window
-        window = glfwCreateWindow(300, 300, "Hello World!", NULL, NULL);
+        window = glfwCreateWindow(1200, 700, "Pavel's viewer", NULL, NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
@@ -66,6 +70,9 @@ public class Runner {
 
             // Get the resolution of the primary monitor
             GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+            this.width = vidmode.width();
+            this.height = vidmode.height();
 
             // Center the window
             glfwSetWindowPos(
@@ -93,7 +100,7 @@ public class Runner {
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
@@ -101,7 +108,7 @@ public class Runner {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
             glfwSwapBuffers(window); // swap the color buffers
-
+            drawPixel();
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
@@ -112,4 +119,22 @@ public class Runner {
         new Runner().run();
     }
 
+    private void drawPixel() {
+        int[][][] data = new int[this.height][][];
+        Random rand = new Random();
+        for (int y = 0; y < this.height; y++) {
+            data[y] = new int[this.width][];
+            for (int x = 0; x < this.width; x++) {
+                data[y][x] = new int[3];
+                data[y][x][0] = (rand.nextInt() % 256) * 256 * 256 * 256;
+                data[y][x][1] = (rand.nextInt() % 256) * 256 * 256 * 256;
+                data[y][x][2] = (rand.nextInt() % 256) * 256 * 256 * 256;
+            }
+        }
+        IntBuffer buf = new IntBuffer();
+
+
+        glDrawPixels(this.width, this.height, GL_RGB, GL_INT, data);
+        glfwSwapBuffers(window);
+    }
 }
