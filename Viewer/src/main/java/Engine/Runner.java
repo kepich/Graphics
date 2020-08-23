@@ -1,10 +1,11 @@
+package Engine;
+
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
-import java.util.Random;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -17,8 +18,12 @@ public class Runner {
     // The window handle
     private long window;
 
-    private int width;
-    private int height;
+    // The window size
+    private int WIDTH = 1280;
+    private int HEIGHT = 720;
+
+    // The model engine
+    private Engine engine;
 
     public void run() {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
@@ -47,10 +52,10 @@ public class Runner {
         // Configure GLFW
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be non-resizable
 
         // Create the window
-        window = glfwCreateWindow(1200, 700, "Pavel's viewer", NULL, NULL);
+        window = glfwCreateWindow(this.WIDTH, this.HEIGHT, "Pavel's viewer", NULL, NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
@@ -71,9 +76,6 @@ public class Runner {
             // Get the resolution of the primary monitor
             GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-            this.width = vidmode.width();
-            this.height = vidmode.height();
-
             // Center the window
             glfwSetWindowPos(
                     window,
@@ -87,8 +89,15 @@ public class Runner {
         // Enable v-sync
         glfwSwapInterval(1);
 
+        // Initialize model logic engine
+        postInit();
+
         // Make the window visible
         glfwShowWindow(window);
+    }
+
+    private void postInit() {
+        this.engine = new Engine(window);
     }
 
     private void loop() {
@@ -105,10 +114,7 @@ public class Runner {
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         while ( !glfwWindowShouldClose(window) ) {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-
-            glfwSwapBuffers(window); // swap the color buffers
-            drawPixel();
+            this.engine.update();
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
@@ -117,24 +123,5 @@ public class Runner {
 
     public static void main(String[] args) {
         new Runner().run();
-    }
-
-    private void drawPixel() {
-        int[][][] data = new int[this.height][][];
-        Random rand = new Random();
-        for (int y = 0; y < this.height; y++) {
-            data[y] = new int[this.width][];
-            for (int x = 0; x < this.width; x++) {
-                data[y][x] = new int[3];
-                data[y][x][0] = (rand.nextInt() % 256) * 256 * 256 * 256;
-                data[y][x][1] = (rand.nextInt() % 256) * 256 * 256 * 256;
-                data[y][x][2] = (rand.nextInt() % 256) * 256 * 256 * 256;
-            }
-        }
-        IntBuffer buf = new IntBuffer();
-
-
-        glDrawPixels(this.width, this.height, GL_RGB, GL_INT, data);
-        glfwSwapBuffers(window);
     }
 }

@@ -1,5 +1,8 @@
 */.gradle
 */.idea
 */.build
-*/build
+*/buildW
 */gradle
+*/hs_err_pid*
+hs_err_pid*
+*.log
