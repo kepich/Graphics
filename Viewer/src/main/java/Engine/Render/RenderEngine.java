@@ -1,5 +1,6 @@
-package Engine;
+package Engine.Render;
 
+import Engine.Engine;
 import Objects.Object;
 import Utils.Color;
 import org.lwjgl.system.MemoryStack;

@@ -1,4 +1,4 @@
-package Engine;
+package Engine.Logic;
 
 import Objects.Object;
 

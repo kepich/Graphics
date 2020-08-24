@@ -1,5 +1,7 @@
 package Engine;
 
+import Engine.Logic.LogicEngine;
+import Engine.Render.RenderEngine;
 import Objects.Object;
 
 import java.util.ArrayList;
