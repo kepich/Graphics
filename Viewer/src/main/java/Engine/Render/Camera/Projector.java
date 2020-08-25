@@ -14,19 +14,7 @@ public class Projector {
         this.position = position;
         this.focus = focus;
         this.type = type;
-        this.projectionMatrix = initializeProjectionMatrix();
-    }
-
-    private Vector<Vector<Float>> initializeProjectionMatrix() {
-        Vector<Vector<Float>> result = new Vector<>(0);
-        for (int i = 0; i < 4; i++){
-            result.add(new Vector<>(0));
-            for (int j = 0; j < 4; j++){
-                result.lastElement().add((i == j) ? 1.0f: 0.0f);
-            }
-        }
-
-        return result;
+        this.projectionMatrix = generateProjectionMatrix();
     }
 
     private Vector<Vector<Float>> updateProjectionMatrix(){

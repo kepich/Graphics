@@ -13,15 +13,9 @@ public class Color {
         this.alpha = a;
     }
 
-    public static Color RED(){
-        return new Color((byte)255, (byte)0, (byte)0, 0);
-    }
-
-    public static Color GREEN(){
-        return new Color((byte)0, (byte)255, (byte)0, 0);
-    }
-
-    public static Color BLUE(){
-        return new Color((byte)0, (byte)0, (byte)255, 0);
-    }
+    public static Color RED = new Color((byte)255, (byte)0, (byte)0, 0);
+    public static Color GREEN = new Color((byte)0, (byte)255, (byte)0, 0);
+    public static Color BLUE = new Color((byte)0, (byte)0, (byte)255, 0);
+    public static Color WHITE = new Color((byte)255, (byte)255, (byte)255, 0);
+    public static Color BLACK = new Color((byte)0, (byte)0, (byte)0, 0);
 }

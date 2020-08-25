@@ -29,4 +29,8 @@ public class Segment extends Object {
     public Vertex getVertex2() {
         return vertex2;
     }
+
+    public Color getColor() {
+        return color;
+    }
 }
