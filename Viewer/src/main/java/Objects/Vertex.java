@@ -1,5 +1,6 @@
 package Objects;
 
+import java.math.BigDecimal;
 import java.util.Vector;
 
 public class Vertex {
@@ -7,6 +8,8 @@ public class Vertex {
     private int yPos;
     private int zPos;
     private float h = 1;
+
+    private static float H_NORMALISATION = 1;
 
     public Vertex(int xPos, int yPos, int zPos, float h) {
         this.xPos = xPos;
@@ -33,5 +36,13 @@ public class Vertex {
         return result;
     }
 
+    public Vertex normalize(){
+        this.xPos = BigDecimal.valueOf(this.xPos / this.h * H_NORMALISATION).intValue();
+        this.yPos = BigDecimal.valueOf(this.yPos / this.h * H_NORMALISATION).intValue();
+        this.zPos = BigDecimal.valueOf(this.zPos / this.h * H_NORMALISATION).intValue();
+        this.h = H_NORMALISATION;
+
+        return this;
+    }
 
 }

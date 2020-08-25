@@ -14,8 +14,8 @@ public abstract class SegmentDrawer{
 
 
     public static void draw(Segment entity, RenderEngine renderEngine) {
-        Vertex v1 = camera.getProjection(entity.getVertex1());
-        Vertex v2 = camera.getProjection(entity.getVertex2());
+        Vertex v1 = camera.getProjection(entity.getVertex1()).normalize();
+        Vertex v2 = camera.getProjection(entity.getVertex2()).normalize();
 
         Vector<Float> v1_cords = v1.getCords(), v2_cords = v2.getCords();
 

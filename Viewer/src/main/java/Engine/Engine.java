@@ -6,6 +6,9 @@ import Objects.Object;
 
 import java.util.ArrayList;
 
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+import static org.lwjgl.opengl.GL11.*;
+
 public class Engine {
     /**
      * Window handle

@@ -44,7 +44,7 @@ public class RenderEngine {
     public RenderEngine(long window, List<Object> objects){
         this.updateWindowSize(window);
         this.WINDOW = window;
-        this.projector = new Projector(new Vertex(0, 0, 5, 0.0f), new Vertex(0, 0, 0, 0.0f), 1);
+        this.projector = new Projector(new Vertex(0, 0, 200, 0.0f), new Vertex(0, 0, 0, 0.0f), 1);
         this.objects = objects;
 
         this.camera = Camera.getCamera(projector);
@@ -83,15 +83,25 @@ public class RenderEngine {
     public void render(){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
         allocateBuffer();
+        fillBuffer(Color.GREY);
 
         for (Object element: this.objects)
             element.draw(this);
 
         glDrawPixels(this.WIDTH, this.HEIGHT, GL_RGB, GL_INT, this.buffer);
-        glfwSwapBuffers(WINDOW); // swap the color buffers
+        glfwSwapBuffers(this.WINDOW); // swap the color buffers
     }
 
     private int[] allocateBuffer(){
         return this.buffer = new int[this.WIDTH * 3 * this.HEIGHT];
+    }
+
+    private void fillBuffer(Color color){
+        for(int i = 0; i < 1280 * 3 * 720; i += 3){
+            this.buffer[i] = color.red;
+            this.buffer[i + 1] = color.green;
+            this.buffer[i + 2] = color.blue;
+        }
+
     }
 }

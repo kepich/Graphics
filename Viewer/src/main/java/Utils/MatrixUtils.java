@@ -1,6 +1,7 @@
 package Utils;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Vector;
 
@@ -19,11 +20,9 @@ public abstract class MatrixUtils {
 
     public static Float vv_mul(Vector<Float> left, Vector<Vector<Float>> right, int rightColumn){
         BigDecimal result = BigDecimal.ZERO;
-        for (Float i: left) {
-            for (Float j: right.elementAt(rightColumn)) {
-                result = BigDecimal.valueOf(i * j).add(result);
-            }
-        }
+
+        for (int i = 0; i < left.size(); i++)
+            result = BigDecimal.valueOf(left.elementAt(i) * right.elementAt(i).elementAt(rightColumn)).add(result);
         return result.setScale(2, RoundingMode.HALF_EVEN).floatValue();
     }
 
@@ -56,12 +55,16 @@ public abstract class MatrixUtils {
         BigDecimal res = BigDecimal.ZERO;
         for(int i = 0; i < v.size(); i++)
             res = BigDecimal.valueOf(v.elementAt(i) * v.elementAt(i)).add(res);
-
-        return res.setScale(2, RoundingMode.HALF_EVEN).floatValue();
+        var result = res.sqrt(MathContext.DECIMAL32).setScale(2, RoundingMode.HALF_EVEN).floatValue();
+        return result;
     }
 
     public static double vv_cos(Vector<Float> v1, Vector<Float> v2){
-        return BigDecimal.valueOf(vv_scalar(v1, v2) / v_len(v1) / v_len(v2)).setScale(2).floatValue();
+        double result = vv_scalar(v1, v2);
+        result /= v_len(v1);
+        result /= v_len(v2);
+        result = BigDecimal.valueOf(result).setScale(2, RoundingMode.HALF_EVEN).floatValue();
+        return result;
     }
 
     public static <T> void v_swap(Vector<T> v){
