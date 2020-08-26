@@ -5,6 +5,8 @@ import Objects.Object;
 import Objects.Vertex;
 import Utils.Color;
 
+import java.util.Vector;
+
 public class Segment extends Object {
     private Vertex vertex1;
     private Vertex vertex2;
@@ -20,6 +22,15 @@ public class Segment extends Object {
     @Override
     public void draw(RenderEngine renderEngine) {
         SegmentDrawer.draw(this, renderEngine);
+    }
+
+    @Override
+    public Vector<Vertex> getVertexes() {
+        Vector<Vertex> result = new Vector<>();
+        result.add(vertex1);
+        result.add(vertex2);
+
+        return result;
     }
 
     public Vertex getVertex1() {

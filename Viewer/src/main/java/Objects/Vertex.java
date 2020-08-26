@@ -1,12 +1,11 @@
 package Objects;
 
-import java.math.BigDecimal;
 import java.util.Vector;
 
 public class Vertex {
-    private int xPos;
-    private int yPos;
-    private int zPos;
+    private float xPos;
+    private float yPos;
+    private float zPos;
     private float h = 1;
 
     private static float H_NORMALISATION = 1;
@@ -19,27 +18,41 @@ public class Vertex {
         this.h = h;
     }
 
+    public void setPos(Vector<Float> cords){
+        this.xPos = cords.elementAt(0);
+        this.yPos = cords.elementAt(1);
+        this.zPos = cords.elementAt(2);
+    }
+
+    public Vertex(float xPos, float yPos, float zPos, float h) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.zPos = zPos;
+
+        this.h = h;
+    }
+
     public Vertex(Vector<Float> cords) {
-        this.xPos = cords.elementAt(0).intValue();
-        this.yPos = cords.elementAt(1).intValue();
-        this.zPos = cords.elementAt(2).intValue();
+        this.xPos = cords.elementAt(0);
+        this.yPos = cords.elementAt(1);
+        this.zPos = cords.elementAt(2);
         this.h = cords.elementAt(3);
     }
 
     public Vector<Float> getCords(){
         Vector<Float> result = new Vector<>();
-        result.add((float) xPos);
-        result.add((float) yPos);
-        result.add((float) zPos);
+        result.add(xPos);
+        result.add(yPos);
+        result.add(zPos);
         result.add(h);
 
         return result;
     }
 
     public Vertex normalize(){
-        this.xPos = BigDecimal.valueOf(this.xPos / this.h * H_NORMALISATION).intValue();
-        this.yPos = BigDecimal.valueOf(this.yPos / this.h * H_NORMALISATION).intValue();
-        this.zPos = BigDecimal.valueOf(this.zPos / this.h * H_NORMALISATION).intValue();
+        this.xPos = this.xPos / this.h * H_NORMALISATION;
+        this.yPos = this.yPos / this.h * H_NORMALISATION;
+        this.zPos = this.zPos / this.h * H_NORMALISATION;
         this.h = H_NORMALISATION;
 
         return this;

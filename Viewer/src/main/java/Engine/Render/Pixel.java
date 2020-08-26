@@ -31,6 +31,14 @@ public class Pixel {
         return position;
     }
 
+    public Vector<Integer> getRelativePosition(int xCenter, int yCenter) {
+        Vector<Integer> relPos = new Vector<>();
+        relPos.add(this.position.elementAt(0) + xCenter);
+        relPos.add(this.position.elementAt(1) + yCenter);
+
+        return relPos;
+    }
+
     public Color getColor() {
         return color;
     }

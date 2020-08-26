@@ -34,7 +34,12 @@ public class Projector {
             }
         }
         result.elementAt(2).set(2, 0.0f);
-        result.elementAt(2).set(3, -1 / position.getCords().elementAt(2));  //Perspective transformation
+        if (position.getCords().elementAt(2) != 0)
+            result.elementAt(2).set(3, -1 / position.getCords().elementAt(2));  //Perspective transformation
+        if (position.getCords().elementAt(1) != 0)
+            result.elementAt(1).set(3, -1 / position.getCords().elementAt(1));  //Perspective transformation
+        if (position.getCords().elementAt(0) != 0)
+            result.elementAt(0).set(3, -1 / position.getCords().elementAt(0));  //Perspective transformation
 
         return result;
     }

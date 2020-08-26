@@ -19,21 +19,22 @@ public abstract class SegmentDrawer{
 
         Vector<Float> v1_cords = v1.getCords(), v2_cords = v2.getCords();
 
-        Vector<Vector<Integer>> points;
+        Vector<Vector<Integer>> points = new Vector<>(0);
         Vector<Float> vectorCords;
 
         vectorCords = v_cords(v1_cords, v2_cords);
-        if (Math.abs(vv_cos(vectorCords, getVx())) > 0.5)
-            points = getPixels(v1_cords, v2_cords);
-        else{
-            v_swap(v1_cords);
-            v_swap(v2_cords);
+        if(vectorCords.elementAt(0) != 0 || vectorCords.elementAt(1) != 0)
+            if (isHorizontal(v1_cords, v2_cords))
+                points = getPixels(v1_cords, v2_cords);
+            else{
+                v_swap(v1_cords);
+                v_swap(v2_cords);
 
-            points = getPixels(v1_cords, v2_cords);
+                points = getPixels(v1_cords, v2_cords);
 
-            for (Vector<Integer> v: points)
-                v_swap(v);
-        }
+                for (Vector<Integer> v: points)
+                    v_swap(v);
+            }
 
         Vector<Pixel> pixels = new Vector<>(0);
         for (Vector<Integer> point: points)
@@ -42,11 +43,19 @@ public abstract class SegmentDrawer{
         renderEngine.setPixels(pixels);
     }
 
+    private static boolean isHorizontal(Vector<Float> v1_cords, Vector<Float> v2_cords){
+        return Math.abs(v1_cords.elementAt(0) - v2_cords.elementAt(0)) >
+                Math.abs(v1_cords.elementAt(1) - v2_cords.elementAt(1));
+    }
+
     private static Vector<Vector<Integer>> getPixels(Vector<Float> v1, Vector<Float> v2){
-        if (v1.elementAt(0) > v2.elementAt(0))
+        if (v1.elementAt(0) > v2.elementAt(0)){
             return drawLine(v2, v1);
-        else
+        }
+        else{
             return drawLine(v1, v2);
+        }
+
     }
 
     private static Vector<Float> getVx() {
