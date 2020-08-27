@@ -1,5 +1,5 @@
 package Engine.Logic.Actions;
 
 public interface Action {
-    void perform();
+    void perform(Object object);
 }

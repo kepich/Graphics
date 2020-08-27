@@ -65,7 +65,9 @@ public abstract class TransformationMatrixFactory {
 
     public static Vector<Vector<Float>> getMeasureComplexMatrix(float multiplier){
         Vector<Vector<Float>> result = getEMatrix();
-        result.elementAt(3).set(3, multiplier);
+        result.elementAt(0).set(0, multiplier);
+        result.elementAt(1).set(1, multiplier);
+        result.elementAt(2).set(2, multiplier);
 
         return result;
     }

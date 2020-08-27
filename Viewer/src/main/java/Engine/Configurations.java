@@ -5,6 +5,10 @@ import Engine.Logic.Objects.Vertex;
 public abstract class Configurations {
     public static final float MOVEMENT_SPEED = 4f;
     public static final float ROTATION_SPEED = 0.1f;
+    public static final float RESIZE_SPEED = 0.9f;
+
+    public static final float JUMP_BOOST = 20;
+    public static final float GRAVITY_FORCE = 1;
 
     public static final float H_NORMALISATION = 1;
 
