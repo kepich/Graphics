@@ -1,8 +1,9 @@
-package Objects.Segment;
+package Engine.Logic.Objects;
 
-import Engine.Render.RenderEngine;
-import Objects.Object;
-import Objects.Vertex;
+import Engine.Adapters.SegmentAdapter;
+import Engine.Render.Pixel;
+import Engine.Logic.Objects.Object;
+import Engine.Logic.Objects.Vertex;
 import Utils.Color;
 
 import java.util.Vector;
@@ -20,8 +21,8 @@ public class Segment extends Object {
     }
 
     @Override
-    public void draw(RenderEngine renderEngine) {
-        SegmentDrawer.draw(this, renderEngine);
+    public Vector<Pixel> draw() {
+        return SegmentAdapter.draw(this);
     }
 
     @Override

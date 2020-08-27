@@ -1,6 +1,8 @@
 package Engine.Render.Camera;
 
-import Objects.Vertex;
+import Engine.Logic.Objects.Vertex;
+import Engine.Logic.Actions.Transformations.TransformationMatrixFactory;
+
 import java.util.Vector;
 
 public class Projector {
@@ -14,7 +16,7 @@ public class Projector {
         this.position = position;
         this.focus = focus;
         this.type = type;
-        this.projectionMatrix = generateProjectionMatrix();
+        this.projectionMatrix = updateProjectionMatrix();
     }
 
     private Vector<Vector<Float>> updateProjectionMatrix(){
@@ -26,13 +28,7 @@ public class Projector {
     }
 
     private Vector<Vector<Float>> generateProjectionMatrix(){
-        Vector<Vector<Float>> result = new Vector<>(0);
-        for (int i = 0; i < 4; i++){
-            result.add(new Vector<>(0));
-            for (int j = 0; j < 4; j++){
-                result.lastElement().add((i == j) ? 1.0f: 0.0f);
-            }
-        }
+        Vector<Vector<Float>> result = TransformationMatrixFactory.getEMatrix();
         result.elementAt(2).set(2, 0.0f);
         if (position.getCords().elementAt(2) != 0)
             result.elementAt(2).set(3, -1 / position.getCords().elementAt(2));  //Perspective transformation

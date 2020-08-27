@@ -1,41 +1,21 @@
 package Engine;
 
+import Engine.Logic.KeyController;
 import Engine.Logic.LogicEngine;
 import Engine.Render.RenderEngine;
-import Objects.Object;
+import Engine.Logic.Objects.Object;
 
 import java.util.ArrayList;
 
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
-import static org.lwjgl.opengl.GL11.*;
-
 public class Engine {
-    /**
-     * Window handle
-     */
-    private long window;
-
-    /**
-     * Render engine
-     */
     private RenderEngine renderEngine;
-
-    /**
-     * Logic engine
-     */
     private LogicEngine logicEngine;
 
-    /**
-     * Objects list
-     */
-
-    private ArrayList<Object> objects = new ArrayList<>();
-
     public Engine(long window) {
-        this.window = window;
+        ArrayList<Object> objects = new ArrayList<>();
 
-        this.renderEngine = new RenderEngine(window, this.objects);   // Initialize render and logic engines
-        this.logicEngine = new LogicEngine(this.objects);
+        this.renderEngine = new RenderEngine(window, objects);
+        this.logicEngine = new LogicEngine(objects, new KeyController(window, objects));
     }
 
     /**

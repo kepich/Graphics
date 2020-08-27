@@ -1,12 +1,12 @@
-package Tranformation;
+package Engine.Logic.Actions.Transformations;
 
-import Objects.Object;
-import Objects.Vertex;
+import Engine.Logic.Objects.Object;
+import Engine.Logic.Objects.Vertex;
 import Utils.MatrixUtils;
 
 import java.util.Vector;
 
-public abstract class Transform {
+public abstract class Transformation {
     private static void transformation(Object entity, Vector<Vector<Float>> matrix){
         Vector<Vector<Float>> vertexesCords = new Vector<>(0);
         Vector<Vertex> vertexes = entity.getVertexes();
@@ -21,34 +21,34 @@ public abstract class Transform {
     }
 
     public static void offset(Object entity, Vector<Float> vector){
-       transformation(entity, MatrixFactory.getOffsetMatrix(vector));
+       transformation(entity, TransformationMatrixFactory.getOffsetMatrix(vector));
     }
 
     public static void rotateX(Object entity, float angle){
-        transformation(entity, MatrixFactory.getRotateXMatrix(angle));
+        transformation(entity, TransformationMatrixFactory.getRotateXMatrix(angle));
     }
 
     public static void rotateY(Object entity, float angle){
-        transformation(entity, MatrixFactory.getRotateYMatrix(angle));
+        transformation(entity, TransformationMatrixFactory.getRotateYMatrix(angle));
     }
 
     public static void rotateZ(Object entity, float angle){
-        transformation(entity, MatrixFactory.getRotateZMatrix(angle));
+        transformation(entity, TransformationMatrixFactory.getRotateZMatrix(angle));
     }
 
     public static void measureX(Object entity, float size){
-        transformation(entity, MatrixFactory.getMeasureXMatrix(size));
+        transformation(entity, TransformationMatrixFactory.getMeasureXMatrix(size));
     }
 
     public static void measureY(Object entity, float size){
-        transformation(entity, MatrixFactory.getMeasureYMatrix(size));
+        transformation(entity, TransformationMatrixFactory.getMeasureYMatrix(size));
     }
 
     public static void measureZ(Object entity, float size){
-        transformation(entity, MatrixFactory.getMeasureZMatrix(size));
+        transformation(entity, TransformationMatrixFactory.getMeasureZMatrix(size));
     }
 
     public static void measureComplex(Object entity, float size){
-        transformation(entity, MatrixFactory.getMeasureComplexMatrix(size));
+        transformation(entity, TransformationMatrixFactory.getMeasureComplexMatrix(size));
     }
 }

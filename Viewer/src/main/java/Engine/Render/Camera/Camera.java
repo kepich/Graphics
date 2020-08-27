@@ -1,31 +1,26 @@
 package Engine.Render.Camera;
 
-import Objects.Vertex;
+import Engine.Logic.Objects.Vertex;
 
 import java.util.Objects;
 
+import static Engine.Configurations.*;
 import static Utils.MatrixUtils.vm_mul;
 
 public class Camera {
-    private Projector projector;
-
     private static Camera cameraSingleton;
 
-    private Camera(){ /* Private constructor*/ }
+    private Projector projector;
 
-    private Camera(Projector projector){
-        this.projector = projector;
+    public static Camera getCamera() {
+        return Objects.requireNonNullElseGet(cameraSingleton, () -> cameraSingleton = new Camera());
     }
 
-    public static Camera getCamera(Projector projector){
-        return Objects.requireNonNullElseGet(cameraSingleton, () -> cameraSingleton = new Camera(projector));
+    private Camera() {
+        this.projector = new Projector(CAMERA_DEFAULT_POSITION, CAMERA_DEFAULT_FOCUS, CAMERA_DEFAULT_PROJECTION_TYPE);
     }
 
-    public static Camera getCamera(){
-        return cameraSingleton;
-    }
-
-    public Vertex getProjection(Vertex point){
+    public Vertex getPointProjection(Vertex point) {
         return new Vertex(vm_mul(point.getCords(), projector.getProjectionMatrix()));
     }
 }

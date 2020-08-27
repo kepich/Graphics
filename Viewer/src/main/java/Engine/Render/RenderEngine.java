@@ -1,9 +1,7 @@
 package Engine.Render;
 
 import Engine.Render.Camera.Camera;
-import Engine.Render.Camera.Projector;
-import Objects.Object;
-import Objects.Vertex;
+import Engine.Logic.Objects.Object;
 import Utils.Color;
 import org.lwjgl.system.MemoryStack;
 
@@ -35,7 +33,6 @@ public class RenderEngine {
 
     private int[] buffer;
     private Camera camera;
-    private Projector projector;
     private int[] sceneCenter = {640, 360};
 
     /**
@@ -45,10 +42,9 @@ public class RenderEngine {
     public RenderEngine(long window, List<Object> objects) {
         this.updateWindowSize(window);
         this.WINDOW = window;
-        this.projector = new Projector(new Vertex(0, 0, 1000, 0.0f), new Vertex(0, 0, 0, 0.0f), 1);
         this.objects = objects;
 
-        this.camera = Camera.getCamera(projector);
+        this.camera = Camera.getCamera();
     }
 
     private void updateWindowSize(long window) {
@@ -80,7 +76,7 @@ public class RenderEngine {
                 pixel.getRelativePosition(this.WIDTH / 2, this.HEIGHT / 2).elementAt(1) < this.HEIGHT;
     }
 
-    public void setPixel(int x, int y, Color color, int[] buffer) {
+    private void setPixel(int x, int y, Color color, int[] buffer) {
         buffer[this.WIDTH * y * 3 + x * 3] = color.red;
         buffer[this.WIDTH * y * 3 + x * 3 + 1] = color.green;
         buffer[this.WIDTH * y * 3 + x * 3 + 2] = color.blue;
@@ -92,7 +88,7 @@ public class RenderEngine {
         fillBuffer(Color.GREY);
 
         for (Object element : this.objects)
-            element.draw(this);
+            setPixels(element.draw());
 
         glDrawPixels(this.WIDTH, this.HEIGHT, GL_RGB, GL_INT, this.buffer);
         glfwSwapBuffers(this.WINDOW); // swap the color buffers

@@ -1,8 +1,8 @@
-package Tranformation;
+package Engine.Logic.Actions.Transformations;
 
 import java.util.Vector;
 
-public abstract class MatrixFactory {
+public abstract class TransformationMatrixFactory {
     public static Vector<Vector<Float>> getOffsetMatrix(Vector<Float> offset){
         Vector<Vector<Float>> result = getEMatrix();
         result.elementAt(3).set(0, offset.elementAt(0));

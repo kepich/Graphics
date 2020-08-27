@@ -1,7 +1,6 @@
-package Objects;
+package Engine.Logic.Objects;
 
-import Engine.Render.RenderEngine;
-import Objects.Segment.Segment;
+import Engine.Render.Pixel;
 import Utils.Color;
 
 import java.util.Vector;
@@ -62,19 +61,21 @@ public class Parallelepiped extends Object {
     }
 
     @Override
-    public void draw(RenderEngine renderEngine) {
-        this.fs1.draw(renderEngine);
-        this.fs2.draw(renderEngine);
-        this.fs3.draw(renderEngine);
-        this.fs4.draw(renderEngine);
-        this.bs1.draw(renderEngine);
-        this.bs2.draw(renderEngine);
-        this.bs3.draw(renderEngine);
-        this.bs4.draw(renderEngine);
-        this.ts1.draw(renderEngine);
-        this.ts2.draw(renderEngine);
-        this.ts3.draw(renderEngine);
-        this.ts4.draw(renderEngine);
+    public Vector<Pixel> draw() {
+        Vector<Pixel> pixels = new Vector<>();
+        pixels.addAll(this.fs1.draw());
+        pixels.addAll(this.fs2.draw());
+        pixels.addAll(this.fs3.draw());
+        pixels.addAll(this.fs4.draw());
+        pixels.addAll(this.bs1.draw());
+        pixels.addAll(this.bs2.draw());
+        pixels.addAll(this.bs3.draw());
+        pixels.addAll(this.bs4.draw());
+        pixels.addAll(this.ts1.draw());
+        pixels.addAll(this.ts2.draw());
+        pixels.addAll(this.ts3.draw());
+        pixels.addAll(this.ts4.draw());
+        return pixels;
     }
 
     @Override
