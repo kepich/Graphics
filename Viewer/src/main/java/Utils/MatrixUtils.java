@@ -55,8 +55,7 @@ public abstract class MatrixUtils {
         BigDecimal res = BigDecimal.ZERO;
         for(int i = 0; i < v.size(); i++)
             res = BigDecimal.valueOf(v.elementAt(i) * v.elementAt(i)).add(res);
-        var result = res.sqrt(MathContext.DECIMAL32).setScale(2, RoundingMode.HALF_EVEN).floatValue();
-        return result;
+        return res.sqrt(MathContext.DECIMAL32).setScale(2, RoundingMode.HALF_EVEN).floatValue();
     }
 
     public static double vv_cos(Vector<Float> v1, Vector<Float> v2){

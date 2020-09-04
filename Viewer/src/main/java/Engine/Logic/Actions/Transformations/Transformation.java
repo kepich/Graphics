@@ -8,16 +8,18 @@ import java.util.Vector;
 
 public abstract class Transformation {
     private static void transformation(Object entity, Vector<Vector<Float>> matrix){
-        Vector<Vector<Float>> vertexesCords = new Vector<>(0);
-        Vector<Vertex> vertexes = entity.getVertexes();
+        if (entity.isMutable()){
+            Vector<Vector<Float>> vertexesCords = new Vector<>(0);
+            Vector<Vertex> vertexes = entity.getVertexes();
 
-        for (Vertex vertex: vertexes)
-            vertexesCords.add(vertex.getCords());
+            for (Vertex vertex: vertexes)
+                vertexesCords.add(vertex.getCords());
 
-        Vector<Vector<Float>> newCords = MatrixUtils.mm_mul(vertexesCords, matrix);
+            Vector<Vector<Float>> newCords = MatrixUtils.mm_mul(vertexesCords, matrix);
 
-        for (int i = 0; i < vertexes.size(); i++)
-            vertexes.elementAt(i).setPos(newCords.elementAt(i));
+            for (int i = 0; i < vertexes.size(); i++)
+                vertexes.elementAt(i).setPos(newCords.elementAt(i));
+        }
     }
 
     public static void offset(Object entity, Vector<Float> vector){

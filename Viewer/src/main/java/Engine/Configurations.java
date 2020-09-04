@@ -1,6 +1,7 @@
 package Engine;
 
 import Engine.Logic.Objects.Vertex;
+import Engine.Render.Camera.ProjectionType;
 
 public abstract class Configurations {
     public static final float MOVEMENT_SPEED = 4f;
@@ -19,5 +20,6 @@ public abstract class Configurations {
 
     public static final Vertex CAMERA_DEFAULT_POSITION = new Vertex(0, 0, 1000, 0.0f);
     public static final Vertex CAMERA_DEFAULT_FOCUS = new Vertex(0, 0, 0, 0.0f);
-    public static final int CAMERA_DEFAULT_PROJECTION_TYPE = 1;
+    public static final ProjectionType CAMERA_DEFAULT_PROJECTION_TYPE = ProjectionType.CAVALIER;
+    public static final float ALPHA_DISTORTION = (float) (Math.PI / 4);
 }

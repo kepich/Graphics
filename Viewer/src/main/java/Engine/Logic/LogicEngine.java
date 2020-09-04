@@ -2,8 +2,8 @@ package Engine.Logic;
 
 import Engine.Configurations;
 import Engine.Logic.Actions.Transformations.Transformation;
+import Engine.Logic.Objects.*;
 import Engine.Logic.Objects.Object;
-import Engine.Logic.Objects.Parallelepiped;
 import Utils.Color;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class LogicEngine {
 
         initializeObjects();
         initializeActions();
-        this.selectedObjectIndex = 0;
+        this.selectedObjectIndex = 3;
     }
 
     public void update(){
@@ -41,17 +41,63 @@ public class LogicEngine {
     }
 
     private void initializeObjects(){
+        this.createCoordinateAxes();
         addObject(new Parallelepiped(0, 0, 0, 150, 150, 100, Color.WHITE));
-        //addObject(new Parallelepiped(0, 0, 0, 150, 150, 100, Color.BLACK));
+
+        Vector<Float[]> polyhedronCords = new Vector<>();
+        polyhedronCords.add(new Float[]{100f, 100f, -100f, 1f});
+        polyhedronCords.add(new Float[]{-100f, 100f, -100f, 1f});
+        polyhedronCords.add(new Float[]{-100f, -100f, -100f, 1f});
+        polyhedronCords.add(new Float[]{100f, -100f, -100f, 1f});
+        polyhedronCords.add(new Float[]{0f, 0f, 0f, 1f});
+        polyhedronCords.add(new Float[]{50f, 50f, 100f, 1f});
+        polyhedronCords.add(new Float[]{-50f, 0f, 100f, 1f});
+        polyhedronCords.add(new Float[]{50f, -50f, 100f, 1f});
+        addObject(new Polyhedron(polyhedronCords, new boolean[][]{
+                {false, true, false, true, true, false, false, false},
+                {false, false, true, false, true, false, false, false},
+                {false, false, false, true, true, false, false, false},
+                {false, false, false, false, true, false, false, false},
+                {false, false, false, false, false, true, true, true},
+                {false, false, false, false, false, false, true, true},
+                {false, false, false, false, false, false, false, true},
+                {false, false, false, false, false, false, false, false},
+        }, Color.WHITE));
+    }
+
+    private void createCoordinateAxes(){
+        Object axis = new Segment(
+                new Vertex(0, 0, 0, 1),
+                new Vertex(200, 0, 0, 1),
+                Color.RED
+        );
+        addObject(axis);
+        axis.setMutable(false);
+
+        axis = new Segment(
+                new Vertex(0, 0, 0, 1),
+                new Vertex(0, 200, 0, 1),
+                Color.GREEN
+        );
+        addObject(axis);
+        axis.setMutable(false);
+
+        axis = new Segment(
+                new Vertex(0, 0, 0, 1),
+                new Vertex(0, 0, 200, 1),
+                Color.BLUE
+        );
+        addObject(axis);
+        axis.setMutable(false);
     }
 
     private void initializeActions(){
         keyController.setKeyCallback(GLFW_KEY_TAB, object -> nextSelectedObject() );
 
-        keyController.setKeyCallback(GLFW_KEY_SPACE, object -> addForceToSelectedObject((Object) object) );
+        keyController.setKeyCallback(GLFW_KEY_SPACE, object -> addForceToSelectedObject() );
     }
 
-    private void addForceToSelectedObject(Object object) {
+    private void addForceToSelectedObject() {
         if (!this.isJump){
             this.jumpForce = Configurations.JUMP_BOOST;
             this.isJump = true;
