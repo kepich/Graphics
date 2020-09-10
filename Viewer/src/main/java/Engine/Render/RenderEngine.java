@@ -33,7 +33,6 @@ public class RenderEngine {
 
     private int[] buffer;
     private Camera camera;
-    private int[] sceneCenter = {640, 360};
 
     /**
      * @param window  - Window handle

@@ -1,8 +1,6 @@
 package Engine.Render;
 
 import Utils.Color;
-import javafx.util.Pair;
-
 import java.util.Vector;
 
 public class Pixel {
