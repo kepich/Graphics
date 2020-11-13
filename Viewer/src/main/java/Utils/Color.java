@@ -19,4 +19,5 @@ public class Color {
     public static Color WHITE = new Color((short)255, (short)255, (short)255, 0);
     public static Color BLACK = new Color((short)0, (short)0, (short)0, 0);
     public static Color GREY = new Color((short)100, (short)100, (short)100, 0);
+    public static Color YELLOW = new Color((short)255, (short)255, (short)0, 0);
 }

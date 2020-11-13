@@ -1,10 +1,8 @@
 package Engine.Logic.Objects;
 
 import Engine.Adapters.SegmentAdapter;
-import Engine.Render.Pixel;
-import Engine.Logic.Objects.Object;
-import Engine.Logic.Objects.Vertex;
 import Utils.Color;
+import Utils.Pixel;
 
 import java.util.Vector;
 
@@ -32,6 +30,11 @@ public class Segment extends Object {
         result.add(vertex2);
 
         return result;
+    }
+
+    @Override
+    public Polygon[] getPolygons() {
+        return new Polygon[0];
     }
 
     public Vertex getVertex1() {

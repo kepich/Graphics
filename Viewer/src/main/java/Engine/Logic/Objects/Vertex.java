@@ -1,6 +1,7 @@
 package Engine.Logic.Objects;
 
-import Engine.Render.Pixel;
+import Engine.Render.Camera.Camera;
+import Utils.Pixel;
 
 import java.util.Vector;
 
@@ -43,9 +44,11 @@ public class Vertex extends Object {
 
     public Vector<Float> getCords(){
         Vector<Float> result = new Vector<>();
-        result.add(xPos);
-        result.add(yPos);
-        result.add(zPos);
+        //Camera cam = Camera.getCamera();
+        //Vertex v = cam.getPointProjection(this);
+        result.add(this.xPos);
+        result.add(this.yPos);
+        result.add(this.zPos);
         result.add(h);
 
         return result;
@@ -71,5 +74,25 @@ public class Vertex extends Object {
         res.add(this);
 
         return res;
+    }
+
+    @Override
+    public Polygon[] getPolygons() {
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return xPos + " " +  yPos + " " + zPos;
+    }
+
+    public Vector<Float> getRawCords() {
+        Vector<Float> result = new Vector<>();
+        result.add(xPos);
+        result.add(yPos);
+        result.add(zPos);
+        result.add(h);
+
+        return result;
     }
 }

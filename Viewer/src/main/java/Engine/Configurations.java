@@ -1,10 +1,10 @@
 package Engine;
 
 import Engine.Logic.Objects.Vertex;
-import Engine.Render.Camera.ProjectionType;
+import Engine.Render.ProjectionType;
 
 public abstract class Configurations {
-    public static final float MOVEMENT_SPEED = 4f;
+    public static final float MOVEMENT_SPEED = 8f;
     public static final float ROTATION_SPEED = 0.1f;
     public static final float RESIZE_SPEED = 0.9f;
 
@@ -18,8 +18,8 @@ public abstract class Configurations {
 
     public static final String WINDOW_TITLE = "Viewer";
 
-    public static final Vertex CAMERA_DEFAULT_POSITION = new Vertex(0, 0, 1000, 0.0f);
+    public static final Vertex CAMERA_DEFAULT_POSITION = new Vertex(0, 0, 1, 0.0f);
     public static final Vertex CAMERA_DEFAULT_FOCUS = new Vertex(0, 0, 0, 0.0f);
-    public static final ProjectionType CAMERA_DEFAULT_PROJECTION_TYPE = ProjectionType.CAVALIER;
+    public static final ProjectionType CAMERA_DEFAULT_PROJECTION_TYPE = ProjectionType.STRAIGHT;
     public static final float ALPHA_DISTORTION = (float) (Math.PI / 4);
 }

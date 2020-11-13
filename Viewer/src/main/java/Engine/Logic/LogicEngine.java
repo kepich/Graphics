@@ -6,7 +6,6 @@ import Engine.Logic.Objects.*;
 import Engine.Logic.Objects.Object;
 import Utils.Color;
 
-import java.util.List;
 import java.util.Vector;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
@@ -27,7 +26,7 @@ public class LogicEngine {
 
         initializeObjects();
         initializeActions();
-        this.selectedObjectIndex = 3;
+        this.selectedObjectIndex = 0;
     }
 
     public void update(){
@@ -41,28 +40,23 @@ public class LogicEngine {
     }
 
     private void initializeObjects(){
-        this.createCoordinateAxes();
-        addObject(new Parallelepiped(0, 0, 0, 150, 150, 100, Color.WHITE));
+        //this.createCoordinateAxes();
+        Parallelepiped p = new Parallelepiped(300, 300, 300, 50, 50, 50, Color.WHITE);
+        Transformation.rotateY(p, 0.5f);
+        addObject(p);
+        p = new Parallelepiped(300, 300, 300, 50, 50, 50, Color.WHITE);
+        Transformation.rotateZ(p, 0.5f);
+        addObject(p);
 
-        Vector<Float[]> polyhedronCords = new Vector<>();
-        polyhedronCords.add(new Float[]{100f, 100f, -100f, 1f});
-        polyhedronCords.add(new Float[]{-100f, 100f, -100f, 1f});
-        polyhedronCords.add(new Float[]{-100f, -100f, -100f, 1f});
-        polyhedronCords.add(new Float[]{100f, -100f, -100f, 1f});
-        polyhedronCords.add(new Float[]{0f, 0f, 0f, 1f});
-        polyhedronCords.add(new Float[]{50f, 50f, 100f, 1f});
-        polyhedronCords.add(new Float[]{-50f, 0f, 100f, 1f});
-        polyhedronCords.add(new Float[]{50f, -50f, 100f, 1f});
-        addObject(new Polyhedron(polyhedronCords, new boolean[][]{
-                {false, true, false, true, true, false, false, false},
-                {false, false, true, false, true, false, false, false},
-                {false, false, false, true, true, false, false, false},
-                {false, false, false, false, true, false, false, false},
-                {false, false, false, false, false, true, true, true},
-                {false, false, false, false, false, false, true, true},
-                {false, false, false, false, false, false, false, true},
-                {false, false, false, false, false, false, false, false},
-        }, Color.WHITE));
+        Tetraedr t = new Tetraedr(new Vertex[]{
+                new Vertex(100, 100, 100, 1f),
+                new Vertex(100, 300, 100, 1f),
+                new Vertex(300, 200, 50, 1f),
+                new Vertex(150, 150, 300, 1f),
+        }, Color.WHITE);
+        Transformation.rotateZ(t, 0.5f);
+        addObject(t);
+
     }
 
     private void createCoordinateAxes(){

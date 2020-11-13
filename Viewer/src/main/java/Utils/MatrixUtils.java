@@ -71,4 +71,15 @@ public abstract class MatrixUtils {
         v.set(0, v.elementAt(1));
         v.set(1, buf);
     }
+
+    public static int trim(int numb, int min, int max){
+        if (numb < min){
+            numb = min;
+        } else {
+            if (numb > max){
+                numb = max;
+            }
+        }
+        return numb;
+    }
 }

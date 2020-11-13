@@ -2,11 +2,10 @@ package Engine.Adapters;
 
 import Engine.Logic.Objects.Segment;
 import Engine.Render.Camera.Camera;
-import Engine.Render.Pixel;
+import Utils.MatrixUtils;
+import Utils.Pixel;
 
 import java.util.Vector;
-
-import static Utils.MatrixUtils.*;
 
 public abstract class SegmentAdapter {
     private static Camera camera = Camera.getCamera();
@@ -23,7 +22,7 @@ public abstract class SegmentAdapter {
     }
 
     private static boolean isZeroVector(Vector<Float> v1_cords, Vector<Float> v2_cords){
-        Vector<Float> vectorCords = v_cords(v1_cords, v2_cords);
+        Vector<Float> vectorCords = MatrixUtils.v_cords(v1_cords, v2_cords);
         return vectorCords.elementAt(0) != 0 || vectorCords.elementAt(1) != 0;
     }
 
@@ -34,13 +33,13 @@ public abstract class SegmentAdapter {
             if (isHorizontalLine(v1_cords, v2_cords))
                 points = getRaster(v1_cords, v2_cords);
             else{
-                v_swap(v1_cords);
-                v_swap(v2_cords);
+                MatrixUtils.v_swap(v1_cords);
+                MatrixUtils.v_swap(v2_cords);
 
                 points = getRaster(v1_cords, v2_cords);
 
                 for (Vector<Integer> v: points)
-                    v_swap(v);
+                    MatrixUtils.v_swap(v);
             }
 
         return points;

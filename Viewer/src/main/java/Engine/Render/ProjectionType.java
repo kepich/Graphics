@@ -1,7 +1,8 @@
-package Engine.Render.Camera;
+package Engine.Render;
 
 public enum ProjectionType {
     PERSPECTIVE,
     CAVALIER,
-    CABINET
+    CABINET,
+    STRAIGHT
 }

@@ -1,9 +1,8 @@
-package Engine.Render.Camera;
+package Engine.Render;
 
-import Engine.Logic.Objects.Vertex;
 import Engine.Logic.Actions.Transformations.TransformationMatrixFactory;
+import Engine.Logic.Objects.Vertex;
 
-import java.lang.module.Configuration;
 import java.util.Vector;
 
 import static Engine.Configurations.ALPHA_DISTORTION;
@@ -27,6 +26,7 @@ public class Projector {
         switch (this.type){
             case CABINET: return generateCabinetProjectionMatrix();
             case CAVALIER: return generateCavalierProjectionMatrix();
+            case STRAIGHT: return TransformationMatrixFactory.getEMatrix();
             default: return generatePerspectiveProjectionMatrix();
         }
     }
@@ -34,12 +34,12 @@ public class Projector {
     private Vector<Vector<Float>> generatePerspectiveProjectionMatrix(){
         Vector<Vector<Float>> result = TransformationMatrixFactory.getEMatrix();
         result.elementAt(2).set(2, 0.0f);
-        if (position.getCords().elementAt(2) != 0)
-            result.elementAt(2).set(3, -1 / position.getCords().elementAt(2));
-        if (position.getCords().elementAt(1) != 0)
-            result.elementAt(1).set(3, -1 / position.getCords().elementAt(1));
-        if (position.getCords().elementAt(0) != 0)
-            result.elementAt(0).set(3, -1 / position.getCords().elementAt(0));
+        if (position.getRawCords().elementAt(2) != 0)
+            result.elementAt(2).set(3, -1 / position.getRawCords().elementAt(2));
+        if (position.getRawCords().elementAt(1) != 0)
+            result.elementAt(1).set(3, -1 / position.getRawCords().elementAt(1));
+        if (position.getRawCords().elementAt(0) != 0)
+            result.elementAt(0).set(3, -1 / position.getRawCords().elementAt(0));
 
         return result;
     }

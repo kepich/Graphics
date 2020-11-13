@@ -1,7 +1,7 @@
 package Engine.Logic.Objects;
 
-import Engine.Render.Pixel;
 import Utils.Color;
+import Utils.Pixel;
 
 import java.util.Vector;
 
@@ -33,6 +33,53 @@ public class Parallelepiped extends Object {
         Vertex b2 = new Vertex(xPos - xSize / 2, yPos + ySize / 2, zPos - zSize / 2, 1);
         Vertex b3 = new Vertex(xPos + xSize / 2, yPos - ySize / 2, zPos - zSize / 2, 1);
         Vertex b4 = new Vertex(xPos + xSize / 2, yPos + ySize / 2, zPos - zSize / 2, 1);
+
+        this.color = color;
+
+        this.polygons = new Polygon[] {
+                new Polygon(new Vertex[]{
+                        f1,
+                        f2,
+                        f4,
+                        f3,
+
+                }, Color.BLACK),
+                new Polygon(new Vertex[]{
+                        b1,
+                        b2,
+                        b4,
+                        b3,
+
+                }, Color.BLUE),
+                new Polygon(new Vertex[]{
+                        f1,
+                        f2,
+                        b2,
+                        b1,
+
+                }, Color.WHITE),
+                new Polygon(new Vertex[]{
+                        f3,
+                        f4,
+                        b4,
+                        b3,
+
+                }, Color.RED),
+                new Polygon(new Vertex[]{
+                        f1,
+                        b1,
+                        b3,
+                        f3,
+
+                }, Color.GREEN),
+                new Polygon(new Vertex[]{
+                        f2,
+                        b2,
+                        b4,
+                        f4,
+
+                }, Color.YELLOW)
+        };
 
         this.vertexes.add(f1);
         this.vertexes.add(f2);
@@ -81,5 +128,10 @@ public class Parallelepiped extends Object {
     @Override
     public Vector<Vertex> getVertexes() {
         return this.vertexes;
+    }
+
+    @Override
+    public Polygon[] getPolygons() {
+        return this.polygons;
     }
 }
