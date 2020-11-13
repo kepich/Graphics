@@ -4,7 +4,6 @@ import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
-import java.util.Random;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -107,8 +106,8 @@ public class Runner {
         while ( !glfwWindowShouldClose(window) ) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
+            render();
             glfwSwapBuffers(window); // swap the color buffers
-            drawPixel();
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
@@ -119,22 +118,7 @@ public class Runner {
         new Runner().run();
     }
 
-    private void drawPixel() {
-        int[][][] data = new int[this.height][][];
-        Random rand = new Random();
-        for (int y = 0; y < this.height; y++) {
-            data[y] = new int[this.width][];
-            for (int x = 0; x < this.width; x++) {
-                data[y][x] = new int[3];
-                data[y][x][0] = (rand.nextInt() % 256) * 256 * 256 * 256;
-                data[y][x][1] = (rand.nextInt() % 256) * 256 * 256 * 256;
-                data[y][x][2] = (rand.nextInt() % 256) * 256 * 256 * 256;
-            }
-        }
-        IntBuffer buf = new IntBuffer();
-
-
-        glDrawPixels(this.width, this.height, GL_RGB, GL_INT, data);
-        glfwSwapBuffers(window);
+    private void render() {
+        
     }
 }
